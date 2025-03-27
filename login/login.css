@@ -1,0 +1,159 @@
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(wall3.jpg);
+    background-size: cover;
+    background-position: center; 
+    opacity: 0.8;
+    z-index: -1;
+  }
+
+  body {
+    position: relative;
+    z-index: 0;
+  }
+  
+  @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+*{
+  margin: 0px;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body{
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffc107;
+}
+/* --primary: #e85d04;
+--secondary: #03071e;
+--tertiary: #f48c06;
+--quaternary: #ffba08;
+--text-light: #ffffff; */
+
+.wrapper{
+  position: relative;
+  max-width: 430px;
+  width: 100%;
+  background: #fff;
+  padding: 34px;
+  border-radius: 6px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+.wrapper h2{
+  position: relative;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.form-select{
+  background-color: transparent;
+}
+
+.wrapper form{
+  margin-top: 30px;
+}
+
+.wrapper form .input-box{
+  height: 52px;
+  margin: 18px 0;
+}
+
+form .input-box input{
+  height: 100%;
+  width: 100%;
+  outline: none;
+  padding: 0 15px;
+  font-size: 17px;
+  font-weight: 400;
+  color: #333;
+  border: 1.5px solid #C7BEBE;
+  border-bottom-width: 2.5px;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.input-box input:focus,
+.input-box input:valid{
+  border-color: #ffc107;
+}
+
+
+
+
+
+/* Style for the custom checkbox */
+.policy input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.policy input[type="checkbox"]:checked {
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+
+.policy input[type="checkbox"]:checked::before {
+  content: '\2713'; /* Checkmark symbol */
+  font-size: 16px;
+  color: #000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+form h3{
+  color: #707070;
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+.input-box.button input{
+  color: #fff;
+  letter-spacing: 1px;
+  border: none;
+  background: #ffc107;
+  cursor: pointer;
+}
+
+.input-box.button input:hover {
+  background: #03071e;
+}
+
+
+
+
+form .text h3 {
+ color: #333;
+ width: 100%;
+ text-align: center;
+ margin-left: -30px;
+}
+
+form .text h3 a{
+  color: #ffc107;
+  text-decoration: none;
+}
+
+form .text h3 a:hover{
+  text-decoration: underline;
+}

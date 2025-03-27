@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Products</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="res-items.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-black fixed-top">
+      <div class="container-fluid py-1">
+        <a class="navbar-brand" href="../feast_plus/index.html"
+          ><img src="../feast_plus/img/logo-dark.png" class="brand-logo"
+        /></a>
+        <button
+          class="navbar-toggler toggler-btn"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="offcanvas offcanvas-end bg-black"
+          tabindex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title nav-link" id="offcanvasNavbarLabel">
+              Feast+
+            </h5>
+            <button
+              type="button"
+              class="btn-close bg-white"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  aria-current="page"
+                  href="../feast_plus/index.html"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../restaurant-menu/res-orders.html">Orders</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../profile/profile.html">Profile</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="../restaurant-menu/res-items.html">Menu Management</a>
+              </li>
+            </ul>
+            <form class="d-flex mt-3 mt-lg-0" role="search">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success nav-search" type="submit">
+                Search
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      <h2 class="text-center mb-4">Our Delicious Products</h2>
+
+      <div class="filter-buttons">
+        <button class="filter-btn active" onclick="filterProducts('veg')">
+          Veg
+        </button>
+        <button class="filter-btn" onclick="filterProducts('nonveg')">
+          Non-Veg
+        </button>
+        <button class="filter-btn" onclick="filterProducts('tiffins')">
+          Tiffins
+        </button>
+      </div>
+
+      <div class="product-grid" id="product-list"></div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="productModal"
+      tabindex="-1"
+      aria-labelledby="productModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="productModalLabel"></h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="productModalBody"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let fooditem = [
+        {
+          id: 1,
+          name: "Pizzeria Delights",
+          category: "veg",
+          cuisine: "Italian",
+          rating: 4.5,
+          image: "../products/img/Pizzeria Delights.jfif",
+          description: "Delicious pizzas with fresh ingredients.",
+        },
+        {
+          id: 2,
+          name: "Golden Dragon",
+          category: "nonveg",
+          cuisine: "Chinese",
+          rating: 4.7,
+          image: "../products/img/Golden Dragon.jpg",
+          description: "Authentic Chinese flavors.",
+        },
+        {
+          id: 3,
+          name: "Taco Fiesta",
+          category: "nonveg",
+          cuisine: "Mexican",
+          rating: 4.2,
+          image: "../products/img/Taco Fiesta.jfif",
+          description: "Spicy and flavorful Mexican dishes.",
+        },
+        {
+          id: 4,
+          name: "Paneer Butter Masala",
+          category: "veg",
+          cuisine: "Indian",
+          rating: 4.6,
+          image: "../products/img/Paneer Butter Masala.jfif",
+          description: "Made with Indian spices and flavors.",
+        },
+        {
+          id: 5,
+          name: "Burger Haven (Chicken)",
+          category: "nonveg",
+          cuisine: "Fast Food",
+          rating: 4.0,
+          image: "../products/img/Burger.jfif",
+          description: "Juicy chicken burgers and crispy fries.",
+        },
+        {
+          id: 6,
+          name: "Vegetable Biryani",
+          category: "veg",
+          cuisine: "Indian",
+          rating: 4.3,
+          image: "../products/img/vegetable-biryani.jpg",
+          description: "Aromatic rice with fresh vegetables.",
+        },
+        {
+          id: 7,
+          name: "Veg Meals",
+          category: "veg",
+          cuisine: "Indian",
+          rating: 4.5,
+          image: "../products/img/veg-meals-1.jpg",
+          description: "A wholesome vegetarian meal.",
+        },
+        {
+          id: 8,
+          name: "Curd Rice",
+          category: "veg",
+          cuisine: "Indian",
+          rating: 4.2,
+          image: "../products/img/curd-rice.jfif",
+          description: "Refreshing curd rice with spices.",
+        },
+        {
+          id: 9,
+          name: "Dum Biryani (Chicken)",
+          category: "nonveg",
+          cuisine: "Indian",
+          rating: 4.8,
+          image: "../products/img/dum_biryani.jfif",
+          description: "Flavorful dum-cooked chicken biryani.",
+        },
+        {
+          id: 10,
+          name: "Chicken 65",
+          category: "nonveg",
+          cuisine: "Indian",
+          rating: 4.6,
+          image: "../products/img/chicken_65.jfif",
+          description: "Spicy and crispy chicken bites.",
+        },
+        {
+          id: 11,
+          name: "Dosa",
+          category: "tiffins",
+          cuisine: "Indian",
+          rating: 4.4,
+          image: "../products/img/dosa.jfif",
+          description: "Crispy dosa served with chutney.",
+        },
+        {
+          id: 12,
+          name: "Idly",
+          category: "tiffins",
+          cuisine: "Indian",
+          rating: 4.5,
+          image: "../products/img/idly.jfif",
+          description: "Soft and fluffy idly with sambar.",
+        },
+        {
+          id: 13,
+          name: "Sushi Delight",
+          category: "nonveg",
+          cuisine: "Japanese",
+          rating: 4.8,
+          image: "../products/img/Sushi Delight.jfif",
+          description: "Fresh and authentic sushi rolls.",
+        },
+        {
+          id: 14,
+          name: "Pad Thai (Chicken)",
+          category: "nonveg",
+          cuisine: "Thai",
+          rating: 4.6,
+          image: "../products/img/Pad Thai.jfif",
+          description: "Classic Thai stir-fried noodles with chicken.",
+        },
+        {
+          id: 15,
+          name: "Shawarma Wrap (Chicken)",
+          category: "nonveg",
+          cuisine: "Middle Eastern",
+          rating: 4.5,
+          image: "../products/img/Shawarma Wrap.jfif",
+          description: "Savory and flavorful chicken shawarma wraps.",
+        },
+        {
+          id: 16,
+          name: "Greek Salad",
+          category: "veg",
+          cuisine: "Greek",
+          rating: 4.3,
+          image: "../products/img/Greek Salad.jfif",
+          description: "Fresh and healthy Greek salad.",
+        },
+        {
+          id: 17,
+          name: "Ramen Bowl (Pork)",
+          category: "nonveg",
+          cuisine: "Japanese",
+          rating: 4.7,
+          image: "../products/img/Ramen Bowl.jfif",
+          description: "Warm and comforting ramen noodles with pork.",
+        },
+        {
+          id: 18,
+          name: "Falafel Platter",
+          category: "veg",
+          cuisine: "Middle Eastern",
+          rating: 4.4,
+          image: "../products/img/Falafel Platter.jfif",
+          description: "Crispy falafels with hummus and pita.",
+        },
+        {
+          id: 19,
+          name: "Tom Yum Soup (Shrimp)",
+          category: "nonveg",
+          cuisine: "Thai",
+          rating: 4.5,
+          image: "../products/img/Tom Yum Soup.jfif",
+          description: "Spicy and tangy Thai soup with shrimp.",
+        },
+        {
+          id: 20,
+          name: "Baklava",
+          category: "veg",
+          cuisine: "Greek",
+          rating: 4.6,
+          image: "../products/img/Baklava.jfif",
+          description: "Sweet and flaky Greek dessert.",
+        },
+        {
+          name: "DUM_BIRYANI",
+          category: "nonveg",
+          image: "./img/dum_biryani.jfif",
+          description: "Slow-cooked biryani with aromatic spices.",
+        },
+        {
+          name: "POT_BIRYANI",
+          category: "nonveg",
+          image: "./img/pot_biryani.jpg",
+          description: "Delicious biryani cooked in a traditional pot.",
+        },
+        {
+          name: "WINGS_BIRYANI",
+          category: "nonveg",
+          image: "./img/wings_biryani.jpeg",
+          description: "Unique biryani with flavorful chicken wings.",
+        },
+        {
+          name: "FISH_BIRYANI",
+          category: "nonveg",
+          image: "./img/fish_biryani.webp",
+          description: "Exotic biryani prepared with fresh fish.",
+        },
+        {
+          name: "FRY_BIRYANI",
+          category: "nonveg",
+          image: "./img/fry_biryani.jfif",
+          description:
+            "Crispy fried ingredients blended into a flavorful biryani.",
+        },
+        {
+          name: "CHICKEN_65",
+          category: "nonveg",
+          image: "./img/chicken_65.jfif",
+          description: "Spicy and tangy chicken appetizer.",
+        },
+        {
+          name: "CHICKEN_FRY",
+          category: "nonveg",
+          image: "./img/chicken_fry.jfif",
+          description: "Crispy and succulent fried chicken.",
+        },
+        {
+          name: "MUTTON_BIRYANI",
+          category: "nonveg",
+          image: "./img/mutton_biryani.jpg",
+          description: "Rich and flavorful biryani with tender mutton pieces.",
+        },
+        {
+          name: "DOSA",
+          category: "tiffins",
+          image: "./img/dosa.jfif",
+          description: "Thin and crispy South Indian crepe.",
+        },
+        {
+          name: "IDLY",
+          category: "tiffins",
+          image: "./img/idly.jfif",
+          description: "Soft and fluffy steamed rice cakes.",
+        },
+        {
+          name: "CHAPATI",
+          category: "tiffins",
+          image: "./img/chapati.jfif",
+          description: "Simple and wholesome whole wheat flatbread.",
+        },
+        {
+          name: "PAROTA",
+          category: "tiffins",
+          image: "./img/parota.jpg",
+          description: "Flaky and layered flatbread, perfect with curries.",
+        },
+        {
+          name: "MYSORE BONDA",
+          category: "tiffins",
+          image: "./img/mysore_bonda.jfif",
+          description: "Crispy and savory fritters from Mysore.",
+        },
+        {
+          name: "GHEE IDLY",
+          category: "tiffins",
+          image: "./img/ghee_idly.jfif",
+          description: "Soft idlies drizzled with pure ghee.",
+        },
+        {
+          name: "VADA",
+          category: "tiffins",
+          image: "./img/vada.jpg",
+          description:
+            "Crispy and savory lentil fritters, often served with sambar.",
+        },
+        {
+          name: "POORI",
+          category: "tiffins",
+          image: "./img/poori.jpg",
+          description:
+            "Puffed and golden deep-fried bread, typically served with potato curry.",
+        },
+      ];
+
+      const productListContainer = document.getElementById("product-list");
+      const filterButtons = document.querySelectorAll(".filter-btn");
+      const productModal = $("#productModal");
+      const productModalLabel = document.getElementById("productModalLabel");
+      const productModalBody = document.getElementById("productModalBody");
+      const addItemBtn = document.getElementById("add-item-btn");
+      const editItemModal = $("#editItemModal");
+      const editItemModalBody = document.getElementById("editItemModalBody");
+      const saveEditItemBtn = document.getElementById("saveEditItem");
+      let currentEditItemId = null;
+
+      function renderProducts(products) {
+        productListContainer.innerHTML = "";
+        if (products.length === 0) {
+          productListContainer.innerHTML =
+            '<p class="text-center">No items found for this filter.</p>';
+          return;
+        }
+        products.forEach((product) => {
+          const card = document.createElement("div");
+          card.classList.add("product-card", "mb-3", "col-md-4");
+          card.innerHTML = `
+                <img src="${product.image}" alt="${
+            product.name
+          }" class="img-fluid">
+                <div class="product-info p-3">
+                    <h4>${product.name.replace(/_/g, " ")}</h4>
+                    <div class="product-meta mb-2">
+                        ${
+                          product.rating
+                            ? `<span class="rating">⭐ ${product.rating}</span>`
+                            : ""
+                        }
+                        ${
+                          product.cuisine
+                            ? `<span>${product.cuisine}</span>`
+                            : ""
+                        }
+                    </div>
+                    <p class="mb-2">${
+                      product.description || "No description available."
+                    }</p>
+                    <div class="product-actions d-flex justify-content-end gap-2">
+                        <button class="btn btn-sm btn-info product-details-btn" data-product-id="${
+                          product.id || product.name
+                        }" data-toggle="modal" data-target="#productModal">Details</button>
+                        <button class="btn btn-sm btn-success edit-item-btn" data-product-id="${
+                          product.id || product.name
+                        }" data-toggle="modal" data-target="#editItemModal">Edit</button>
+                        <button class="btn btn-sm btn-danger remove-item-btn" data-product-id="${
+                          product.id || product.name
+                        }">Remove</button>
+                    </div>
+                </div>
+            `;
+          productListContainer.appendChild(card);
+        });
+      }
+
+      function filterProducts(category) {
+        filterButtons.forEach((btn) => btn.classList.remove("active"));
+        const clickedButton = Array.from(filterButtons).find((button) => {
+          return button.textContent.toLowerCase() === category.toLowerCase();
+        });
+        if (clickedButton) {
+          clickedButton.classList.add("active");
+        } else if (category === "all") {
+          document
+            .querySelector('.filter-btn[data-filter="all"]')
+            .classList.add("active");
+        }
+
+        if (category === "all") {
+          renderProducts(fooditem);
+        } else {
+          const filteredProducts = fooditem.filter(
+            (item) => item.category === category || item.cuisine === category
+          );
+          renderProducts(filteredProducts);
+        }
+      }
+
+      // Initial fetch of food items
+      fetchFoodItems();
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          const filterValue = this.getAttribute("data-filter");
+          filterProducts(filterValue);
+        });
+      });
+
+      productModal.on("show.bs.modal", function (event) {
+        const button = $(event.relatedTarget);
+        const productId = button.data("product-id");
+        const selectedProduct = fooditem.find(
+          (item) =>
+            (item.id && item.id.toString() === productId) ||
+            item.name === productId
+        );
+
+        if (selectedProduct) {
+          productModalLabel.textContent = selectedProduct.name.replace(
+            /_/g,
+            " "
+          );
+          productModalBody.innerHTML = `
+                ${
+                  selectedProduct.image
+                    ? `<img src="${selectedProduct.image}" class="img-fluid mb-3" alt="${selectedProduct.name}">`
+                    : ""
+                }
+                ${
+                  selectedProduct.cuisine
+                    ? `<p><strong>Cuisine:</strong> ${selectedProduct.cuisine}</p>`
+                    : ""
+                }
+                ${
+                  selectedProduct.rating
+                    ? `<p><strong>Rating:</strong> ⭐ ${selectedProduct.rating}</p>`
+                    : ""
+                }
+                ${
+                  selectedProduct.description
+                    ? `<p><strong>Description:</strong> ${selectedProduct.description}</p>`
+                    : "<p>No detailed description available.</p>"
+                }
+            `;
+        } else {
+          productModalLabel.textContent = "Product Details";
+          productModalBody.textContent = "Could not load product details.";
+        }
+      });
+
+      productListContainer.addEventListener("click", function (event) {
+        if (event.target.classList.contains("remove-item-btn")) {
+          const productIdToRemove = event.target.dataset.productId;
+          const indexToRemove = fooditem.findIndex(
+            (item) =>
+              (item.id && item.id.toString() === productIdToRemove) ||
+              item.name === productIdToRemove
+          );
+          if (indexToRemove !== -1) {
+            fooditem.splice(indexToRemove, 1);
+            renderProducts(fooditem);
+          }
+        } else if (event.target.classList.contains("edit-item-btn")) {
+          currentEditItemId = event.target.dataset.productId;
+          const itemToEdit = fooditem.find(
+            (item) =>
+              (item.id && item.id.toString() === currentEditItemId) ||
+              item.name === currentEditItemId
+          );
+          if (itemToEdit) {
+            populateEditModal(itemToEdit);
+          }
+        }
+      });
+
+      addItemBtn.addEventListener("click", function () {
+        populateEditModal({}); // Pass an empty object for adding a new item
+        editItemModal.modal("show");
+        currentEditItemId = null; // Reset for adding
+      });
+
+      function populateEditModal(item) {
+        const formHtml = `
+            <form id="editForm">
+                <div class="form-group">
+                    <label for="edit-name">Name</label>
+                    <input type="text" class="form-control" id="edit-name" value="${
+                      item.name || ""
+                    }" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-category">Category</label>
+                    <input type="text" class="form-control" id="edit-category" value="${
+                      item.category || ""
+                    }">
+                </div>
+                <div class="form-group">
+                    <label for="edit-cuisine">Cuisine</label>
+                    <input type="text" class="form-control" id="edit-cuisine" value="${
+                      item.cuisine || ""
+                    }">
+                </div>
+                <div class="form-group">
+                    <label for="edit-rating">Rating</label>
+                    <input type="number" class="form-control" id="edit-rating" min="0" max="5" step="0.1" value="${
+                      item.rating || ""
+                    }">
+                </div>
+                <div class="form-group">
+                    <label for="edit-image">Image URL</label>
+                    <input type="text" class="form-control" id="edit-image" value="${
+                      item.image || ""
+                    }">
+                </div>
+                <div class="form-group">
+                    <label for="edit-description">Description</label>
+                    <textarea class="form-control" id="edit-description">${
+                      item.description || ""
+                    }</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+        `;
+        editItemModalBody.innerHTML = formHtml;
+
+        const editForm = document.getElementById("editForm");
+        editForm.addEventListener("submit", handleEditSubmit);
+      }
+
+      function handleEditSubmit(event) {
+        event.preventDefault();
+        const name = document.getElementById("edit-name").value;
+        const category = document.getElementById("edit-category").value;
+        const cuisine = document.getElementById("edit-cuisine").value;
+        const rating = parseFloat(document.getElementById("edit-rating").value);
+        const image = document.getElementById("edit-image").value;
+        const description = document.getElementById("edit-description").value;
+
+        const updatedItem = {
+          name,
+          category,
+          cuisine,
+          rating,
+          image,
+          description,
+        };
+
+        if (currentEditItemId) {
+          const indexToUpdate = fooditem.findIndex(
+            (item) =>
+              (item.id && item.id.toString() === currentEditItemId) ||
+              item.name === currentEditItemId
+          );
+          if (indexToUpdate !== -1) {
+            fooditem[indexToUpdate] = {
+              ...fooditem[indexToUpdate],
+              ...updatedItem,
+            };
+          }
+        } else {
+          // Adding a new item
+          const newId =
+            fooditem.length > 0
+              ? Math.max(...fooditem.map((item) => item.id || 0)) + 1
+              : 1;
+          fooditem.push({ id: newId, ...updatedItem });
+        }
+
+        renderProducts(fooditem);
+        editItemModal.modal("hide");
+        // Remove the event listener to prevent multiple submissions
+        const editForm = document.getElementById("editForm");
+        editForm.removeEventListener("submit", handleEditSubmit);
+        currentEditItemId = null;
+      }
+    </script>
+
+    <!-- footer section -->
+    <footer class="footer-section">
+      <div class="container">
+        <div class="footer-cta pt-5 pb-5">
+          <div class="row">
+            <div class="col-xl-4 col-md-4 mb-30">
+              <div class="single-cta">
+                <i class="fas fa-map-marker-alt footer-row-icon"></i>
+                <div class="cta-text">
+                  <h4>Find us</h4>
+                  <span>SIPCOT IT Park, Chennai</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-md-4 mb-30">
+              <div class="single-cta">
+                <i class="fas fa-phone footer-row-icon"></i>
+                <div class="cta-text">
+                  <h4>Call us</h4>
+                  <span>+91 7744339128</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-md-4 mb-30">
+              <div class="single-cta">
+                <i class="far fa-envelope-open footer-row-icon"></i>
+                <div class="cta-text">
+                  <h4>Mail us</h4>
+                  <span>mail@info.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-content pt-5 pb-5">
+          <div class="row">
+            <div class="col-xl-4 col-lg-4 mb-50">
+              <div class="footer-widget">
+                <div class="footer-logo">
+                  <a href="index.html"
+                    ><img
+                      src="../feast_plus/img/logo-dark.png"
+                      class="img-fluid"
+                      alt="logo"
+                  /></a>
+                </div>
+                <div class="footer-text">
+                  <p>
+                    Lorem ipsum dolor sit amet, consec tetur adipisicing elit,
+                    sed do eiusmod tempor incididuntut consec tetur adipisicing
+                    elit,Lorem ipsum dolor sit amet.
+                  </p>
+                </div>
+                <div class="footer-social-icon">
+                  <span>Follow us</span>
+                  <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
+                  <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
+                  <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+              <div class="footer-widget">
+                <div class="footer-widget-heading">
+                  <h3>Useful Links</h3>
+                </div>
+                <ul>
+                  <li><a href="#">Home</a></li>
+                  <li><a href="#">about</a></li>
+                  <li><a href="#">services</a></li>
+                  <li><a href="#">portfolio</a></li>
+                  <li><a href="#">Contact</a></li>
+                  <li><a href="#">About us</a></li>
+                  <li><a href="#">Our Services</a></li>
+                  <li><a href="#">Expert Team</a></li>
+                  <li><a href="#">Contact us</a></li>
+                  <li><a href="#">Latest News</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+              <div class="footer-widget">
+                <div class="footer-widget-heading">
+                  <h3>Subscribe</h3>
+                </div>
+                <div class="footer-text mb-25">
+                  <p>
+                    Don’t miss to subscribe to our new feeds, kindly fill the
+                    form below.
+                  </p>
+                </div>
+                <div class="subscribe-form">
+                  <form action="#">
+                    <input type="text" placeholder="Email Address" />
+                    <button><i class="fab fa-telegram-plane"></i></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyright-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+              <div class="copyright-text">
+                <p>
+                  Copyright &copy; 2025, All Right Reserved
+                  <span>@foodery</span>
+                </p>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
+              <div class="footer-menu">
+                <ul>
+                  <li><a href="#">Home</a></li>
+                  <li><a href="#">Terms</a></li>
+                  <li><a href="#">Privacy</a></li>
+                  <li><a href="#">Policy</a></li>
+                  <li><a href="#">Contact</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
